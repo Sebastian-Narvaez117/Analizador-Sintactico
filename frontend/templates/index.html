@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniCompilador - Analizador Sintáctico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>MiniCompilador</h1>
+                <p>Analizador Sintáctico con GLC, Thompson y Árbol de Derivación</p>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot" id="backendStatus"></span>
+                <span id="statusText">Verificando...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Editor Panel -->
+            <div class="panel editor-panel">
+                <div class="panel-header">
+                    <h2> Código Fuente</h2>
+                    <div class="button-group">
+                        <button class="btn btn-small" onclick="limpiar()">Limpiar</button>
+                        <button class="btn btn-small btn-primary" onclick="analizar()">Analizar</button>
+                    </div>
+                </div>
+                <textarea id="codigo" class="editor" placeholder="int x = 5;&#10;if (x > 0) {
+    y = 10;
+} else {
+    y = 20;
+}"></textarea>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="panel results-panel">
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('resumen')">Resumen</button>
+                    <button class="tab-btn" onclick="switchTab('tokens')">Tokens</button>
+                    <button class="tab-btn" onclick="switchTab('arbol')">Árbol de Derivación</button>
+                    <button class="tab-btn" onclick="switchTab('tabla')">Tabla Thompson</button>
+                </div>
+
+                <!-- Tab Contents -->
+                <div id="resumen" class="tab-content active">
+                    <div id="resultadoResumen" class="result-box">
+                        <p class="placeholder">Ingresa código y presiona "Analizar"</p>
+                    </div>
+                </div>
+
+                <div id="tokens" class="tab-content">
+                    <div id="resultadoTokens" class="tokens-container">
+                        <p class="placeholder">Los tokens aparecerán aquí</p>
+                    </div>
+                </div>
+
+                <div id="arbol" class="tab-content">
+                    <div id="resultadoArbol" class="tree-container">
+                        <p class="placeholder">El árbol de derivación aparecerá aquí</p>
+                    </div>
+                </div>
+
+                <div id="tabla" class="tab-content">
+                    <div id="resultadoTabla" class="table-container">
+                        <p class="placeholder">La tabla de transiciones aparecerá aquí</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading & Error Messages -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Analizando código...</p>
+        </div>
+
+        <div id="errorMsg" class="error-message hidden"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/verificador/VerificadorBalanceo.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/thompson/Thompson.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/controller/AnalizadorController.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/lexer/Lexer.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/parser/Parser.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/service/AnalizadorService.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/model/Nodo.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/model/TipoToken.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/MinicompiladorApplication.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/model/Token.java
+/home/sebastian/Documentos/minicompilador2/src/main/java/com/analizadorsintactico/minicompilador/model/ResultadoAnalisis.java
