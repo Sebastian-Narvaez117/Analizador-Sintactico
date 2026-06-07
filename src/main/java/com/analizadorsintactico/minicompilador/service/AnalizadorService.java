@@ -12,60 +12,67 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Servicio principal que orquesta los 3 pasos del análisis:
- *   1. VerificadorBalanceo  — pila de llaves/paréntesis
- *   2. Lexer                — tokenización (usa Thompson internamente)
- *   3. Parser               — árbol de derivación según la GLC
- */
 @Service
 public class AnalizadorService {
 
     public ResultadoAnalisis analizar(String codigo) {
 
-        // ── Paso 1: Verificación de balanceo ────────────────────────── //
         VerificadorBalanceo.Resultado balanceo = VerificadorBalanceo.verificar(codigo);
 
         if (!balanceo.esValido) {
             return new ResultadoAnalisis(
-                false,
-                balanceo.mensaje,
-                null, null,
-                Thompson.tablaTransiciones(),
-                "Análisis detenido: código no balanceado."
+                    false,
+                    balanceo.mensaje,
+                    null,
+                    null,
+                    null,
+                    Thompson.tablaTransiciones(),
+                    "Análisis detenido: el código no está balanceado.",
+                    Thompson.jflapIdentificador(),
+                    Thompson.jflapNumero(),
+                    Thompson.jflapKeyword(),
+                    Thompson.jflapBloqueControl()
             );
         }
 
-        // ── Paso 2: Análisis léxico ──────────────────────────────────── //
-        Lexer        lexer  = new Lexer(codigo);
-        List<Token>  tokens = lexer.tokenizar();
+        Lexer lexer = new Lexer(codigo);
+        List<Token> tokens = lexer.tokenizar();
 
         List<String> tokensTexto = tokens.stream()
-            .map(Token::toString)
-            .collect(Collectors.toList());
+                .map(Token::toString)
+                .collect(Collectors.toList());
 
-        // ── Paso 3: Análisis sintáctico (árbol de derivación) ────────── //
         try {
             Parser parser = new Parser(tokens);
-            Nodo   arbol  = parser.parsearPrograma();
+            Nodo arbol = parser.parsearPrograma();
 
             return new ResultadoAnalisis(
-                true,
-                balanceo.mensaje,
-                tokensTexto,
-                arbol.aTexto(0),
-                Thompson.tablaTransiciones(),
-                "Análisis completado correctamente."
+                    true,
+                    balanceo.mensaje,
+                    tokensTexto,
+                    arbol.aTexto(0),
+                    arbol.aGraphviz(),
+                    Thompson.tablaTransiciones(),
+                    "Análisis léxico, sintáctico y construcción del árbol completados correctamente.",
+                    Thompson.jflapIdentificador(),
+                    Thompson.jflapNumero(),
+                    Thompson.jflapKeyword(),
+                    Thompson.jflapBloqueControl()
             );
 
         } catch (RuntimeException e) {
             return new ResultadoAnalisis(
-                false,
-                balanceo.mensaje,
-                tokensTexto,
-                null,
-                Thompson.tablaTransiciones(),
-                e.getMessage()
+                    false,
+                    balanceo.mensaje,
+                    tokensTexto,
+                    null,
+                    null,
+                    Thompson.tablaTransiciones(),
+                    e.getMessage(),
+                    Thompson.jflapIdentificador(),
+                    Thompson.jflapNumero(),
+                    Thompson.jflapKeyword(),
+                    Thompson.jflapBloqueControl()
             );
         }
     }
